@@ -120,11 +120,21 @@ contract ReverseBids is IERC20 {
         burstVault();
 
         if(address(this) == _tokenContract){
-            Address.sendValue(payable(leader), AUCTION_PRIZE);
-            // Rest to the Owner.
-            uint256 balance = address(this).balance;
-            if(balance > 0){
-                Address.sendValue(payable(msg.sender), balance);
+            if(AUCTION_PRIZE <= address(this).balance){
+                // Enough to Send to Winner and Owner.
+                Address.sendValue(payable(leader), AUCTION_PRIZE);
+                // Rest to the Owner.
+                uint256 balance = address(this).balance;
+                if(balance > 0){
+                    Address.sendValue(payable(msg.sender), balance);
+                }
+            }else{
+                // Enough to Send only to the Winner.
+                // Withdraw native ETH or MATIC.
+                uint256 balance = address(this).balance;
+                if(balance > 0){
+                    Address.sendValue(payable(leader), balance);
+                }
             }
         }else{
             // Withdraw any other Tokens that might have been sent to ie: ETH* APE, LPT, MATIC.
