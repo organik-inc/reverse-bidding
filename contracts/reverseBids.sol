@@ -46,6 +46,19 @@ contract ReverseBids {
             "This Vault is not accepting more Offers"
         );
         uint256 offerId = offersCount;
+        
+        Offer storage offer = offers[offerId];
+        // Offer Genesis.
+        offer.id = offerId;
+        offer.payoutAddress = payable(receiverAddress);
+        offer.amount = amount;
+        offer.genesis = block.timestamp;
+        offer.rip     = 0;
+        offer.burnt   = false;
+        
+        offersCount++;
+        emit NewOffer(msg.sender, offerId);
+        
     }
 
     modifier onlyOwner() {
