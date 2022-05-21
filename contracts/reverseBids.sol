@@ -87,6 +87,15 @@ contract ReverseBids {
                     // This bid might be equal or lower than the lead
                     if(offers[index].amount == offers[leadOffer].amount){
                         // Same bid? Burn Offer
+                        Offer storage offer = offers[index];
+                        // Offer RIP.
+                        offer.burnt = true;
+                        offer.rip   = block.timestamp;
+
+                        Offer storage lead = offers[leadOffer];
+                        // Lead Offer RIP.
+                        lead.burnt = true;
+                        lead.rip   = block.timestamp;
                         
                         leader = owner;
                         // leadOffer Stays the same.
