@@ -33,6 +33,21 @@ contract ReverseBids {
 
     event NewOffer(address indexed fromAddress, uint256 id);
     
+    function createOffer(
+        address receiverAddress,
+        uint256 amount
+    ) public payable {
+        require(
+            msg.value == 1 * 10** uint256(decimals()) ,
+            "You need to pay 1 MATIC to create an offer"
+        );
+        require(
+            block.timestamp <= endTime ,
+            "This Vault is not accepting more Offers"
+        );
+        uint256 offerId = offersCount;
+    }
+
     modifier onlyOwner() {
         require(msg.sender == owner, "OKGOLD:ERROR #You are not the Owner of this Auction");
         _;
