@@ -33,6 +33,18 @@ contract ReverseBids {
 
     event NewOffer(address indexed fromAddress, uint256 id);
     
+    function getAllBids() public view returns (Offer[] memory) {
+        require(
+            block.timestamp > endTime ,
+            "This Vault is still accepting more Offers"
+        );
+        Offer[] memory allBids = new Offer[](offersCount);
+        for (uint256 index = 0; index < offersCount; index++) {
+            allBids[index] = offers[index];
+        }
+        return allBids;
+    }
+
     function createOffer(
         address receiverAddress,
         uint256 amount
@@ -58,7 +70,7 @@ contract ReverseBids {
         
         offersCount++;
         emit NewOffer(msg.sender, offerId);
-        
+
     }
 
     modifier onlyOwner() {
