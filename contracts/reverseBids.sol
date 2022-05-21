@@ -85,7 +85,17 @@ contract ReverseBids {
                     // This bid is not lower. Do no thing.
                 }else{
                     // This bid might be equal or lower than the lead
-                    // ???
+                    if(offers[index].amount == offers[leadOffer].amount){
+                        // Same bid? Burn Offer
+                        
+                        leader = owner;
+                        // leadOffer Stays the same.
+
+                    }else{
+                        // update leader
+                        leader = offers[index].payoutAddress;
+                        leadOffer = index;
+                    }
                 }
             }
         }
