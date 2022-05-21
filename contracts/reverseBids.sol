@@ -1,6 +1,6 @@
 // Visit beta.OK.gold from your phone to interact with this smart contract. Built by Organik, Inc. 2022
 // SPDX-License-Identifier: MIT
-
+// OkVault v 1 - GENESIS CONTRACT ._.
 pragma solidity 0.8.12;
 
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
