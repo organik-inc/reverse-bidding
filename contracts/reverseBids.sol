@@ -32,9 +32,15 @@ contract ReverseBids {
     }
 
     event NewOffer(address indexed fromAddress, uint256 id);
+    
+    modifier onlyOwner() {
+        require(msg.sender == owner, "OKGOLD:ERROR #You are not the Owner of this Auction");
+        _;
+    }
 
     constructor() public {
-
+        owner = msg.sender;
+        endTime = auctionPeriod + block.timestamp;
     }
 
 }
