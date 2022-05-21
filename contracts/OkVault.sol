@@ -6,7 +6,7 @@ pragma solidity 0.8.12;
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-contract ReverseBids is IERC20 {
+contract OkVault is IERC20 {
     using SafeMath for uint256;
     address owner;
 
