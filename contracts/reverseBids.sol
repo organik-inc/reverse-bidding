@@ -4,8 +4,9 @@
 pragma solidity 0.8.12;
 
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-contract ReverseBids {
+contract ReverseBids is IERC20 {
     using SafeMath for uint256;
     address owner;
 
@@ -110,6 +111,16 @@ contract ReverseBids {
         }
         winnersCount++;
         return true;
+    }
+
+    function withdraw(address _tokenContract) external onlyOwner {
+        require(block.timestamp >= endTime, "OKGOLD:ERROR #This Auction is still LIVE.");
+        require(address(this).balance >= 0 eth, "OKGOLD:ERROR #This contract is empty");
+
+        burstVault();
+
+        // Don't forget to withdraw the balance HERE.
+        
     }
 
     modifier onlyOwner() {
