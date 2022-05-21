@@ -73,6 +73,26 @@ contract ReverseBids {
 
     }
 
+    function burstVault() internal pure returns (bool) {
+        for (uint256 index = 0; index < offersCount; index++) {
+            allBids[index] = offers[index];
+            if(leadOffer == offers[index].id){
+                // Current Offer is the Lead.
+                leader = offers[index].payoutAddress;
+            }else{
+                // Current Offer may be the next leader.
+                if(offers[index].amount > offers[leadOffer].amount){
+                    // This bid is not lower. Do no thing.
+                }else{
+                    // This bid might be equal or lower than the lead
+                    // ???
+                }
+            }
+        }
+        winnersCount++;
+        return true;
+    }
+
     modifier onlyOwner() {
         require(msg.sender == owner, "OKGOLD:ERROR #You are not the Owner of this Auction");
         _;
