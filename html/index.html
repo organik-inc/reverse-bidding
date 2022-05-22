@@ -2,9 +2,206 @@
 <!-- Reverse Bidding - Built for HackMoney2022 at ETH Global Hackathon. May 2022. -->
 <html lang="en">
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=5, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="format-detection" content="telephone=no">
+    <!-- <meta name="theme-color" content="#ffffff"> -->
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#222032" media="(prefers-color-scheme: dark)">
+    <title>OK Gold - RevBidding v0.1 ßeta | ETHGlobal</title>
+    <meta name="description" content="OK Gold – Bid the least and win the most.">
+    <meta name="keywords"
+        content="defi, ethglobal, polygon, auction, reverse bidding, pwa, crypto" />
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" href="https://genesis.ok.gold/cdn/genesis/images/favicon/icon-32x32.png" sizes="32x32">
+    <!-- IOS SUPPORT -->
+    <link rel="apple-touch-icon" href="https://genesis.ok.gold/cdn/genesis/images/favicon/icon-96x96.png">
+    <!-- CSS FILES -->
+    <link rel="stylesheet" href="https://genesis.ok.gold/cdn/genesis/css/style.css">
+    <link rel="stylesheet" href="https://genesis.ok.gold/cdn/genesis/css/remixicon.min.css">
+    <link rel="stylesheet" href="https://genesis.ok.gold/cdn/genesis/vendors/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://genesis.ok.gold/cdn/genesis/vendors/zuck_stories/zuck.min.css">
     
 </head>
-<body>
 
+<body>
+    <!-- ===================================
+        START LODAER PAGE
+    ==================================== -->
+    <section class="loader-page" id="loaderPage">
+        <div class="spinner_flash"></div>
+    </section>
+    <!-- START WRAPPER -->
+    <div id="wrapper">
+        <!-- START CONTENT -->
+        <div id="content">
+            <!-- ===================================
+                START THE HEADER
+            ==================================== -->
+            <header class="default heade-sticky">
+                <div class="un-title-page go-back">
+                    <a href="#" class="icon">
+                        <i class="ri-wallet-3-fill"></i>
+                    </a>
+                    <h1 class="text-center">Choose your Wallet</h1>
+                </div>
+            </header>
+            <!-- ===================================
+                START THE SPACE STICKY
+            ==================================== -->
+            <div class="space-sticky"></div>
+            <!-- ===================================
+                START WALLETS LIST
+            ==================================== -->
+            <section class="margin-t-10 un-connect-wallet margin-b-30">
+                <div class="cover-image-wallet">
+                    <picture>
+                        <source srcset="https://genesis.ok.gold/cdn/genesis/images/other/wallet-light.webp" type="image/webp">
+                        <img src="https://genesis.ok.gold/cdn/genesis/images/other/wallet-light.png" alt="">
+                    </picture>
+                </div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="modal" data-bs-target="#mdllOtherOpen">
+                            <div class="icon-app">
+                                <picture>
+                                    <source srcset="https://genesis.ok.gold/cdn/genesis/images/icons/ezgif.webp" type="image/webp">
+                                    <img src="https://genesis.ok.gold/cdn/genesis/images/icons/ezgif.png" alt="ezgif">
+                                </picture>
+                            </div>
+                            <h2 class="text-name">Coinbase</h2>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+						<a class="nav-link" data-bs-toggle="modal" data-bs-target="#mdllOtherOpenMM">
+							<div class="icon-app">
+								<picture>
+									<source srcset="https://genesis.ok.gold/cdn/genesis/images/icons/metamask.webp" type="image/webp">
+									<img src="https://genesis.ok.gold/cdn/genesis/images/icons/metamask.png" alt="metamask">
+								</picture>
+							</div>
+							<h2 class="text-name">Metamask</h2>
+						</a>
+					</li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://staging-app.epns.io/#/channels?channel=0x5575C4cdbe21a8891749945Dab0D524BDB9f0cAD">
+                            <div class="icon-app">
+                                <picture>
+                                    <img src="https://genesis.ok.gold/cdn/genesis/images/favicon/icon-96x96.png" alt="metamask">
+                                </picture>
+                            </div>
+                            <h2 class="text-name">Subscribe to EPNS Channel</h2>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="clearCache()">
+                            <div class="icon-app">
+                                <picture>
+                                    <img src="https://genesis.ok.gold/cdn/genesis/images/favicon/icon-96x96.png" alt="metamask">
+                                </picture>
+                            </div>
+                            <h2 class="text-name">Clear Cache</h2>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </section>
+        </div>
+    </div>
+    <!-- ===================================
+        START THE EXTERNAL OPEN MODAL
+    ==================================== -->
+    <div class="modal transition-bottom screenFull defaultModal mdlladd__rate fade" id="mdllOtherOpen" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header border-0"></div>
+                <div class="modal-body pt-0">
+                    <div class="content-alert-actions">
+                        <div class="margin-b-20">
+                            <h2>
+                                Continue to open this Dapp inside Coinbase Wallet.
+                            </h2>
+                        </div>
+
+                        <div class="action-links">
+                            <button type="button" class="btn border color-text rounded-pill margin-r-20"
+                                data-bs-dismiss="modal">Cancel</button>
+                            <a href="https://go.cb-w.com/dapp?cb_url=https%3A%2F%2Fgenesis.ok.gold%2F%40bcoinbase" class="btn bg-primary text-white rounded-pill">Coinbase Wallet</a>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer border-0">
+                    <div class="env-pb"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal transition-bottom screenFull defaultModal mdlladd__rate fade" id="mdllOtherOpenMM" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header border-0"></div>
+                <div class="modal-body pt-0">
+                    <div class="content-alert-actions">
+                        <div class="margin-b-20">
+                            <h2>
+                                Open this Dapp inside MetaMask Wallet.
+                            </h2>
+                        </div>
+
+                        <div class="action-links">
+                            <button type="button" class="btn border color-text rounded-pill margin-r-20"
+                                data-bs-dismiss="modal">Cancel</button>
+                            <a href="https://metamask.app.link/dapp/genesis.ok.gold/metamask" class="btn bg-primary text-white rounded-pill">MetaMask Wallet</a>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer border-0">
+                    <div class="env-pb"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ===================================
+        START STATUS CONNECTION
+    ==================================== -->
+    <div class="d-flex justify-content-center">
+        <div class="toast status-connection" role="alert" aria-live="assertive" aria-atomic="true"></div>
+    </div>
+
+    <script>
+        // alert(navigator.userAgent);
+        
+        function clearCache() {
+            caches.keys().then(function(names) {
+                for (let name of names)
+                    caches.delete(name);
+            });
+            alert('Cache Cleared');
+        }
+    </script>
+
+    <!-- JS FILES -->
+    <script src="https://genesis.ok.gold/cdn/genesis/vendors/zuck_stories/zuck.min.js"></script>
+    <script src="https://genesis.ok.gold/cdn/genesis/vendors/smoothscroll/smoothscroll.min.js"></script>
+    <script src="https://genesis.ok.gold/cdn/genesis/vendors/swiper/swiper-bundle.min.js"></script>
+    <script src="https://genesis.ok.gold/cdn/genesis/vendors/nouislider/nouislider.min.js"></script>
+    <script src="https://genesis.ok.gold/cdn/genesis/vendors/nouislider/wNumb.min.js"></script>
+    <script src="https://genesis.ok.gold/cdn/genesis/js/bootstrap.bundle.min.js"></script>
+    <script src="https://genesis.ok.gold/cdn/genesis/js/custom.js"></script>
+    <!-- PWA APP SERVICE REGISTRATION AND WORKS JS -->
+    <script src="https://genesis.ok.gold/cdn/genesis/js/pwa-services.js"></script>
 </body>
+
 </html>
