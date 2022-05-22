@@ -1,6 +1,6 @@
 // Visit beta.OK.gold from your phone to interact with this smart contract. Built by Organik, Inc. 2022
 // SPDX-License-Identifier: MIT
-// OkVault v 3 - GENESIS CONTRACT ._.
+// OkVault v 4 - GENESIS CONTRACT ._.
 pragma solidity 0.8.12;
 
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
@@ -13,7 +13,6 @@ contract OkVault is ERC721URIStorage {
     address owner;
 
     uint256 public offersCount = 0;
-    uint256 public participantsCount = 0;
     uint256 public winnersCount = 0;
     uint256 public totalPOAP = 0;
 
@@ -21,20 +20,19 @@ contract OkVault is ERC721URIStorage {
     
     uint256 public endTime = 0;
     uint256 public AUCTION_PRIZE = 0; // updated inside the Constructor
-    uint32 constant auctionPeriod = 1 days; // EDIT THIS: Vault Life.
+    uint32 constant auctionPeriod = 1 days; // EDIT THIS: Vault Life. (1 days)
 
     address public leader;
     uint256 public leadOffer = 0;
     
     mapping(uint256 => Offer) private offers;
+    mapping(uint256 => uint256) private bids;
 
     struct Offer {
         uint256 id;
         uint256 amount;
         address payable payoutAddress;
-        bool burnt;
         uint256 genesis;
-        uint256 rip;
     }
 
     event NewOffer(address indexed fromAddress, uint256 id);
@@ -70,6 +68,7 @@ contract OkVault is ERC721URIStorage {
             block.timestamp <= endTime ,
             "This Vault is not accepting more Offers"
         );
+        offersCount++;
         uint256 offerId = offersCount;
         
         Offer storage offer = offers[offerId];
@@ -78,10 +77,7 @@ contract OkVault is ERC721URIStorage {
         offer.payoutAddress = payable(receiverAddress);
         offer.amount = amount;
         offer.genesis = block.timestamp;
-        offer.rip     = 0;
-        offer.burnt   = false;
         
-        offersCount++;
         emit NewOffer(msg.sender, offerId);
         if(balanceOf(receiverAddress) <= 0){
             _mint(receiverAddress, totalPOAP);
@@ -89,43 +85,31 @@ contract OkVault is ERC721URIStorage {
             totalPOAP++;
             emit Mint(msg.sender, receiverAddress, tokenJSON, totalPOAP);
         }
+        bids[amount]++;
     }
 
     function burstVault() internal returns (bool) {
-        Offer[] memory allBids = new Offer[](offersCount);
-        for (uint256 index = 0; index < offersCount; index++) {
-            allBids[index] = offers[index];
-            if(leadOffer == offers[index].id){
-                // Current Offer is the Lead.
-                leader = offers[index].payoutAddress;
-            }else{
-                // Current Offer may be the next leader.
-                if(offers[index].amount > offers[leadOffer].amount){
-                    // This bid is not lower. Do no thing.
+        uint256 totalUnique = 0;
+        for (uint256 index = 1; index < offersCount; index++) {
+            if(bids[offers[index].amount] == 1){
+                // Unique Bid.
+                totalUnique++;
+                if(leadOffer <= 0){
+                    leadOffer = index;
+                    leader = offers[index].payoutAddress;
                 }else{
-                    // This bid might be equal or lower than the lead
-                    if(offers[index].amount == offers[leadOffer].amount){
-                        // Same bid? Burn Offer
-                        Offer storage offer = offers[index];
-                        // Offer RIP.
-                        offer.burnt = true;
-                        offer.rip   = block.timestamp;
 
-                        Offer storage lead = offers[leadOffer];
-                        // Lead Offer RIP.
-                        lead.burnt = true;
-                        lead.rip   = block.timestamp;
-                        
-                        leader = owner;
-                        // leadOffer Stays the same.
-
-                    }else{
-                        // update leader
-                        leader = offers[index].payoutAddress;
+                    if(offers[index].amount <= offers[leadOffer].amount){
                         leadOffer = index;
+                        leader = offers[index].payoutAddress;
                     }
+
                 }
             }
+        }
+        if(totalUnique <= 0){
+            leadOffer = 0;
+            leader = owner;
         }
         winnersCount++;
         return true;
@@ -192,7 +176,7 @@ contract OkVault is ERC721URIStorage {
         _;
     }
 
-    constructor(string memory _tokenJSON, uint _prize) public ERC721("POAP - Ok.Gold", "OkVaultV1") {
+    constructor(string memory _tokenJSON, uint _prize) public ERC721("POAP - OK.Gold", "OkVaultV1") {
         tokenJSON = _tokenJSON;
         owner = msg.sender;
         AUCTION_PRIZE = _prize * ( 10 ** uint32(18) );
