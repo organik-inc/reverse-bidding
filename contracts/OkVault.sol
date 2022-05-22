@@ -1,6 +1,6 @@
 // Visit beta.OK.gold from your phone to interact with this smart contract. Built by Organik, Inc. 2022
 // SPDX-License-Identifier: MIT
-// OkVault v 4 - GENESIS CONTRACT ._.
+// OkVault v 5 - GENESIS CONTRACT ._.
 pragma solidity 0.8.12;
 
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
@@ -20,6 +20,7 @@ contract OkVault is ERC721URIStorage {
     
     uint256 public endTime = 0;
     uint256 public AUCTION_PRIZE = 0; // updated inside the Constructor
+    uint256 public ENTRY_FEE = 1 * 10** uint256(uint32(18)); // 1 eth
     uint32 constant auctionPeriod = 1 days; // EDIT THIS: Vault Life. (1 days)
 
     address public leader;
@@ -61,8 +62,8 @@ contract OkVault is ERC721URIStorage {
         uint256 amount
     ) public payable {
         require(
-            msg.value == 1 * 10** uint256(uint32(18)) ,
-            "You need to pay 1 MATIC to create an offer"
+            msg.value == ENTRY_FEE ,
+            "You need to pay X MATIC to create an offer"
         );
         require(
             block.timestamp <= endTime ,
