@@ -1,0 +1,31 @@
+{
+    "description": "POAP for attending a Reverse Bidding Auction powered by Ok.Gold", 
+    "external_url": "https://ok.gold/", 
+    "image": "https://genesis.ok.gold/cdn/genesis/images/favicon/icon-512x512.png", 
+    "name": "OK.Gold POAP",
+    "attributes": [
+      {
+        "trait_type": "PoweredBy", 
+        "value": "Organik Labs"
+      }, 
+      {
+        "trait_type": "Level", 
+        "value": 1111
+      }, 
+      {
+        "display_type": "boost_number", 
+        "trait_type": "Total Pot", 
+        "value": 777
+      }, 
+      {
+        "display_type": "boost_percentage", 
+        "trait_type": "Win Chances", 
+        "value": 10
+      }, 
+      {
+        "display_type": "number", 
+        "trait_type": "Generation", 
+        "value": 1
+      }
+    ]
+  } 
