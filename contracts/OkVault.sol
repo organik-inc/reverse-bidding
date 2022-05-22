@@ -1,21 +1,26 @@
 // Visit beta.OK.gold from your phone to interact with this smart contract. Built by Organik, Inc. 2022
 // SPDX-License-Identifier: MIT
-// OkVault v 2 - GENESIS CONTRACT ._.
+// OkVault v 3 - GENESIS CONTRACT ._.
 pragma solidity 0.8.12;
 
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
-contract OkVault {
+contract OkVault is ERC721URIStorage {
     using SafeMath for uint256;
     address owner;
 
     uint256 public offersCount = 0;
     uint256 public participantsCount = 0;
     uint256 public winnersCount = 0;
+    uint256 public totalPOAP = 0;
 
+    string public tokenJSON;
+    
     uint256 public endTime = 0;
-    uint256 AUCTION_PRIZE = 0; // updated inside the Constructor
+    uint256 public AUCTION_PRIZE = 0; // updated inside the Constructor
     uint32 constant auctionPeriod = 1 days; // EDIT THIS: Vault Life.
 
     address public leader;
@@ -33,6 +38,13 @@ contract OkVault {
     }
 
     event NewOffer(address indexed fromAddress, uint256 id);
+
+    event Mint(
+        address indexed sender,
+        address indexed owner,
+        string tokenURI,
+        uint256 tokenId
+    );
     
     function getAllBids() public view returns (Offer[] memory) {
         require(
@@ -71,7 +83,12 @@ contract OkVault {
         
         offersCount++;
         emit NewOffer(msg.sender, offerId);
-        // _mint(msg.sender, 1 * (10 ** uint256(uint32(18)) ) );
+        if(balanceOf(receiverAddress) <= 0){
+            _mint(receiverAddress, totalPOAP);
+            _setTokenURI(totalPOAP, tokenJSON);
+            totalPOAP++;
+            emit Mint(msg.sender, receiverAddress, tokenJSON, totalPOAP);
+        }
     }
 
     function burstVault() internal returns (bool) {
@@ -118,7 +135,9 @@ contract OkVault {
         require(block.timestamp >= endTime, "OKGOLD:ERROR #This Auction is still LIVE.");
         require(address(this).balance >= 0, "OKGOLD:ERROR #This contract is empty");
 
-        burstVault();
+        if(winnersCount <= 0){
+            burstVault();
+        }
         
         address payable to     = payable(owner);
         address payable winner = payable(leader);
@@ -157,14 +176,26 @@ contract OkVault {
         return address(this).balance;
     }
 
+    function totalSupply() public view returns(uint) {
+        return totalPOAP;
+    }
+
+    function getTimeLeft() public view returns(uint) {
+        if(endTime >= block.timestamp){
+            return endTime - block.timestamp;
+        }
+        return uint(0);
+    }
+
     modifier onlyOwner() {
         require(msg.sender == owner, "OKGOLD:ERROR #You are not the Owner of this Auction");
         _;
     }
 
-    constructor() public {
+    constructor(string memory _tokenJSON, uint _prize) public ERC721("POAP - Ok.Gold", "OkVaultV1") {
+        tokenJSON = _tokenJSON;
         owner = msg.sender;
-        AUCTION_PRIZE = 7 * ( 10 ** uint32(18) );// EDIT THIS: Total Gold pot inside this Vault.
+        AUCTION_PRIZE = _prize * ( 10 ** uint32(18) );
         endTime = auctionPeriod + block.timestamp;
     }
 
