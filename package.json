@@ -1,0 +1,24 @@
+{
+  "name": "ok-vault",
+  "version": "1.0.0",
+  "description": "Reverse Bidding MVP by OK Gold.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/organik-inc/reverse-bidding.git"
+  },
+  "keywords": [
+    "Auctions",
+    "Reverse",
+    "Bidding"
+  ],
+  "author": "Organik, Inc. 2022",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/organik-inc/reverse-bidding/issues"
+  },
+  "homepage": "https://github.com/organik-inc/reverse-bidding#readme"
+}

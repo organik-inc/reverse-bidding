@@ -1,0 +1,7 @@
+tasks:
+  - name: Start Local Server
+    init: npm install && echo "Welcome to OkVault v1" && python -m http.server 8000
+
+ports:
+  - port: 8000
+    onOpen: open-preview
