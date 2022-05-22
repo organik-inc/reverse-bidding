@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<!-- Reverse Bidding - Built for HackMoney2022 at ETH Global Hackathon. May 2022. -->
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=5, viewport-fit=cover" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="format-detection" content="telephone=no">
+<!-- <meta name="theme-color" content="#ffffff"> -->
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222032" media="(prefers-color-scheme: dark)">
+<title>OK Gold - RevBidding v0.1 ßeta | ETHGlobal</title>
+<meta name="description" content="OK Gold – Bid the least and win the most.">
+<meta name="keywords"
+	content="defi, ethglobal, polygon, auction, reverse bidding, pwa, crypto" />
+<!-- FAVICON -->
+<link rel="icon" type="image/png" href="https://genesis.ok.gold/cdn/genesis/images/favicon/icon-32x32.png" sizes="32x32">
+<!-- IOS SUPPORT -->
+<link rel="apple-touch-icon" href="https://genesis.ok.gold/cdn/genesis/images/favicon/icon-96x96.png">
+<!-- CSS FILES -->
+<link rel="stylesheet" href="https://genesis.ok.gold/cdn/genesis/css/style.css">
+<link rel="stylesheet" href="https://genesis.ok.gold/cdn/genesis/css/remixicon.min.css">
+<link rel="stylesheet" href="https://genesis.ok.gold/cdn/genesis/vendors/swiper/swiper-bundle.min.css">
+<link rel="stylesheet" href="https://genesis.ok.gold/cdn/genesis/vendors/zuck_stories/zuck.min.css">
+
+<body>
+	<!-- ===================================
+	  START LODAER PAGE
+	==================================== -->
+	<section class="loader-page" id="loaderPage">
+		<div class="spinner_flash"></div>
+	</section>
+	<!-- START WRAPPER -->
+	<div id="wrapper">
+		<!-- START CONTENT -->
+		<div id="content">
+			<!-- ===================================
+			  START THE HEADER
+			==================================== -->
+			<header class="default heade-sticky">
+				<div class="un-title-page go-back">
+					<a href="#" class="icon">
+						<i class="ri-wallet-3-fill"></i>
+					</a>
+					<h1 class="text-center">Welcome!</h1>
+				</div>
+			</header>
+			<!-- ===================================
+			  START THE SPACE STICKY
+			==================================== -->
+			<div class="space-sticky"></div>
+			<!-- ===================================
+			  START WALLETS LIST
+			==================================== -->
+			<section class="margin-t-10 un-connect-wallet margin-b-30">
+				<div class="cover-image-wallet">
+					<picture>
+						<source srcset="https://genesis.ok.gold/cdn/genesis/images/other/wallet-light.webp" type="image/webp">
+						<img src="https://genesis.ok.gold/cdn/genesis/images/other/wallet-light.png" alt="">
+					</picture>
+				</div>
+				<ul class="nav flex-column">
+					<li class="nav-item">
+						<a class="nav-link" onclick="login()">
+							<div class="icon-app">
+								<picture>
+									<source srcset="https://genesis.ok.gold/cdn/genesis/images/icons/metamask.webp" type="image/webp">
+									<img src="https://genesis.ok.gold/cdn/genesis/images/icons/metamask.png" alt="metamask">
+								</picture>
+							</div>
+							<h2 class="text-name">Authenticate</h2>
+						</a>
+					</li>
+					
+				</ul>
+			</section>
+		</div>
+	</div>
+	<div class="d-flex justify-content-center">
+		<div class="toast status-connection" role="alert" aria-live="assertive" aria-atomic="true"></div>
+	</div>
+	<script src="https://unpkg.com/moralis@1.7.0/dist/moralis.js"></script>
+	<script>
+		// alert(navigator.userAgent);
+		function redirect(){
+			setTimeout(function () {
+				// Do something.
+				window.location.replace("/dapp");
+			}, 999);
+			return false;
+		}
+		async function login() {
+		  let user = Moralis.User.current();
+			if (!user) {
+			  user = await Moralis.authenticate({ signingMessage: "OK Vault is requesting your signature to approve login authorization!\n\nYou will NOT be charged for this interaction." })
+				.then(function (user) {
+				  console.log("logged in user:", user);
+				  walletAddress = user.get("ethAddress");
+				  console.log(walletAddress);
+				  redirect();
+				})
+				.catch(function (error) {
+				  console.log(error);
+				});
+			}else{
+				console.log("logged in user:", user);
+				walletAddress = user.get("ethAddress");
+				console.log(walletAddress);
+				redirect();
+			}
+		}
+		function clearCache() {
+			caches.keys().then(function(names) {
+				for (let name of names)
+					caches.delete(name);
+			});
+			alert('Cache Cleared');
+		}
+	</script>
+	<!-- JS FILES -->
+<script src="https://genesis.ok.gold/cdn/genesis/vendors/zuck_stories/zuck.min.js"></script>
+<script src="https://genesis.ok.gold/cdn/genesis/vendors/smoothscroll/smoothscroll.min.js"></script>
+<script src="https://genesis.ok.gold/cdn/genesis/vendors/swiper/swiper-bundle.min.js"></script>
+<script src="https://genesis.ok.gold/cdn/genesis/vendors/nouislider/nouislider.min.js"></script>
+<script src="https://genesis.ok.gold/cdn/genesis/vendors/nouislider/wNumb.min.js"></script>
+<script src="https://genesis.ok.gold/cdn/genesis/js/bootstrap.bundle.min.js"></script>
+<script src="https://genesis.ok.gold/cdn/genesis/js/custom.js"></script>
+<!-- PWA APP SERVICE REGISTRATION AND WORKS JS -->
+<script src="https://genesis.ok.gold/cdn/genesis/js/pwa-services.js"></script>	<script>
+	'use strict'
+	const daoAddress = '0x00'; // MUMBAI TESTNET
+	// This Address is only for Polygon's Mumbai Testnet.
+	var walletAddress = '';
+	window.onload = function() {
+	  // Change this KEYs with your own Moralis App Keys (https://moralis.io)
+	  const serverUrl = "https://XXXXXXXX.usemoralis.com:2053/server";
+	  const appId = "JLsgYOWX.......................MoxoNAMbr"; // same here, ok?
+	  
+	  Moralis.start({ serverUrl, appId });
+	  
+	};
+	</script>
+</body>
+
+</html>
