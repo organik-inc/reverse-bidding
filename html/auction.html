@@ -1,0 +1,347 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<!-- Reverse Bidding - Built for HackMoney2022 at ETH Global Hackathon. May 2022. -->
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=5, viewport-fit=cover" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="format-detection" content="telephone=no">
+<!-- <meta name="theme-color" content="#ffffff"> -->
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222032" media="(prefers-color-scheme: dark)">
+<title>OK Gold - RevBidding v0.1 ßeta | ETHGlobal</title>
+<meta name="description" content="OK Gold – Bid the least and win the most.">
+<meta name="keywords"
+	content="defi, ethglobal, polygon, auction, reverse bidding, pwa, crypto" />
+<!-- FAVICON -->
+<link rel="icon" type="image/png" href="https://genesis.ok.gold/cdn/genesis/images/favicon/icon-32x32.png" sizes="32x32">
+<!-- IOS SUPPORT -->
+<link rel="apple-touch-icon" href="https://genesis.ok.gold/cdn/genesis/images/favicon/icon-96x96.png">
+<!-- CSS FILES -->
+<link rel="stylesheet" href="https://genesis.ok.gold/cdn/genesis/css/style.css">
+<link rel="stylesheet" href="https://genesis.ok.gold/cdn/genesis/css/remixicon.min.css">
+<link rel="stylesheet" href="https://genesis.ok.gold/cdn/genesis/vendors/swiper/swiper-bundle.min.css">
+<link rel="stylesheet" href="https://genesis.ok.gold/cdn/genesis/vendors/zuck_stories/zuck.min.css">
+
+<body>
+	<!-- ===================================
+	  START LODAER PAGE
+	==================================== -->
+	<section class="loader-page" id="loaderPage">
+		<div class="spinner_flash"></div>
+	</section>
+	<!-- START WRAPPER -->
+	<div id="wrapper">
+		<!-- START CONTENT -->
+		<div id="content">
+			<!-- ===================================
+			  START THE HEADER
+			==================================== -->
+			<header class="default heade-sticky">
+				<div class="un-title-page go-back">
+					<a href="#" class="icon">
+						<i class="ri-wallet-3-fill"></i>
+					</a>
+					<h1 class="text-center">OK. Vault</h1>
+				</div>
+			</header>
+			<!-- ===================================
+			  START THE SPACE STICKY
+			==================================== -->
+			<div class="space-sticky"></div>
+			<!-- ===================================
+			  START DAPP
+			==================================== -->
+			<section class="un-intro-card un-creator-ptofile">
+				<div class="un-cc-description">
+					<div class="cover-image black-cover">
+						<picture>
+							<img src="https://genesis.ok.gold/cdn/genesis/images/auctions/demo.jpeg" alt="image">
+						</picture>
+					</div>
+					<div class="text-content text-center">
+						<h1>LIVE AUCTION!</h1>
+					</div>
+					<div class="body">
+						<div class="statistics">
+							<div class="text-grid text-center">
+								<h4>0</h4>
+								<p>DAYS</p>
+							</div>
+							<div class="text-grid text-center">
+								<h4>0</h4>
+								<p>MINUTES</p>
+							</div>
+							<div class="text-grid text-center">
+								<h4>0</h4>
+								<p>HOURS</p>
+							</div>
+							<div class="text-grid text-center">
+								<h4>0</h4>
+								<p>SECONDS</p>
+							</div>
+						</div>
+					</div>
+					<div class="text-content text-center">
+						<h1 class="text-success">TIME LEFT</h1>
+						<br/>
+						<h1>AUCTION DETAILS</h1>
+					</div>
+					<div class="body">
+						<div class="statistics">
+							<div class="text-grid">
+								<h4>111</h4>
+								<p>WIN</p>
+							</div>
+							<div class="text-grid">
+								<h4>90</h4>
+								<p>Bids</p>
+							</div>
+							<div class="text-grid">
+								<h4>0.1</h4>
+								<p>Fee</p>
+							</div>
+							<div class="text-grid">
+								<h4>POLYGON</h4>
+								<p>Network</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="un-navMenu-default with-visit margin-t-10 margin-b-30">
+				<ul class="nav flex-column">
+					
+					<li class="nav-item">
+						<a class="nav-link" data-bs-toggle="modal" data-bs-target="#mdllOtherOpen">
+							<div class="item-content-link">
+								<div class="icon bg-green-1 color-green">
+									<i class="ri-auction-line"></i>
+								</div>
+								<h3 class="link-title">BID</h3>
+							</div>
+							<div class="other-cc">
+								<span class="badge-text"></span>
+								<div class="icon-arrow">
+									<i class="ri-arrow-drop-right-line"></i>
+								</div>
+							</div>
+						</a>
+					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link" onclick="logOut()">
+							<div class="item-content-link">
+								<div class="icon bg-purple-1 color-purple">
+									<i class="ri-lock-line"></i>
+								</div>
+								<h3 class="link-title">LOCK DAPP</h3>
+							</div>
+							<div class="other-cc">
+								<span class="badge-text"></span>
+								<div class="icon-arrow">
+									<i class="ri-arrow-drop-right-line"></i>
+								</div>
+							</div>
+						</a>
+					</li>
+					
+				</ul>
+			</section>
+		</div>
+	</div>
+	<div class="modal transition-bottom screenFull defaultModal mdlladd__rate fade" id="mdllOtherOpen" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header border-0"></div>
+				<div class="modal-body pt-0">
+					<div class="content-alert-actions">
+						<div class="margin-b-20 text-center">
+							<h2>
+								PLACING A BID FOR:
+							</h2>
+							<br/>
+							<h1 class="text-success">
+								$<span id="bidAmount">100</span> USD
+							</h1>
+						</div>
+						<div class="slider-range-price">
+							<div class="content-slider">
+								<div class="header">
+									<div class="auto-price">
+										<div class="input-text-price min">
+											<input type="text" class="input-with-keypress-0" id="input-with-keypress-0">
+											<span>USD</span>
+										</div>
+										<span class="mx-1"> - </span>
+										<div class="input-text-price max">
+											<input type="text" class="input-with-keypress-1" id="input-with-keypress-1">
+											<span>USD</span>
+										</div>
+									</div>
+								</div>
+								<div class="steps-slider" id="steps-slider"></div>
+								<div class="price-under-line">
+									<span>0.01 USD</span>
+									<span>100 USD</span>
+								</div>
+							</div>
+						</div>
+						<div class="action-links text-center">
+							<button onclick="increase(0.01)" type="button" class="btn text-warning border color-text rounded-pill margin-r-20">-0.01</button>
+							<button onclick="decrease(0.01)" type="button" class="btn text-success border color-text rounded-pill margin-r-20">+0.01</button>
+						</div>
+						<div class="space-items"><br/></div>
+						<div class="action-links text-center">
+							<button type="button" class="btn bg-danger text-white border color-text rounded-pill margin-r-20"
+								data-bs-dismiss="modal">Cancel</button>
+							<a href="#" onclick="bid(event);" class="btn bg-primary text-white rounded-pill margin-r-20">BID</a>
+						</div>
+	
+					</div>
+	
+				</div>
+				<div class="modal-footer border-0">
+					<div class="env-pb"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="d-flex justify-content-center">
+		<div class="toast status-connection" role="alert" aria-live="assertive" aria-atomic="true"></div>
+	</div>
+	<script src="https://unpkg.com/moralis@1.7.0/dist/moralis.js"></script>
+	<script src="abi/json.js"></script>
+	<script>
+		// alert(navigator.userAgent);
+		async function logOut() {
+			await Moralis.User.logOut();
+			setTimeout(function () {
+				  console.log("logged out");
+				  redirect();
+			}, 333);
+		}
+		function updateBid(val){
+			var total = bidAmount.innerHTML;
+			var newTotal = total - val;
+			if(newTotal >= 100){
+				bidAmount.innerHTML = 100;
+			}else{
+				if(newTotal <= 0.01){
+					bidAmount.innerHTML = 0.01;
+				}else{
+					bidAmount.innerHTML = (Math.round(newTotal * 100) / 100).toFixed(2);
+				}
+			}
+		}
+		function increase(diff){
+			updateBid(diff)
+		}
+		function decrease(diff){
+			updateBid(-1*diff)
+		}
+		function redirect(){
+			setTimeout(function () {
+				window.location.replace("/welcome");
+			}, 888);
+			return false;
+		}
+		async function bid() {
+		  const web3Provider = await Moralis.enableWeb3();
+		  const options = {
+			contractAddress: daoAddress,
+			functionName: "createOffer",
+			abi: ABI,
+			msgValue: Moralis.Units.ETH(entryFee),
+			params: {
+				  receiverAddress: walletAddress,
+				  amount: `${bidAmount.innerHTML*100}`
+			  }
+		  };
+		  const transaction = await Moralis.executeFunction(options);
+		  try {
+			  const receipt = await transaction.wait();
+			  console.log(receipt)
+		  } catch (error) {
+			  console.log(error.data.message);
+		  }
+		}
+		
+		async function login() {
+		  let user = Moralis.User.current();
+			if (!user) {
+				logOut().then(()=>{
+					// redirect();
+				})
+			}else{
+				console.log("logged in user:", user);
+				walletAddress = user.get("ethAddress");
+				console.log(walletAddress);
+			}
+		}
+		function clearCache() {
+			caches.keys().then(function(names) {
+				for (let name of names)
+					caches.delete(name);
+			});
+			alert('Cache Cleared');
+		}
+	</script>
+	<!-- JS FILES -->
+<script src="https://genesis.ok.gold/cdn/genesis/vendors/zuck_stories/zuck.min.js"></script>
+<script src="https://genesis.ok.gold/cdn/genesis/vendors/smoothscroll/smoothscroll.min.js"></script>
+<script src="https://genesis.ok.gold/cdn/genesis/vendors/swiper/swiper-bundle.min.js"></script>
+<script src="https://genesis.ok.gold/cdn/genesis/vendors/nouislider/nouislider.min.js"></script>
+<script src="https://genesis.ok.gold/cdn/genesis/vendors/nouislider/wNumb.min.js"></script>
+<script src="https://genesis.ok.gold/cdn/genesis/js/bootstrap.bundle.min.js"></script>
+<script src="https://genesis.ok.gold/cdn/genesis/js/custom.js"></script>
+<!-- PWA APP SERVICE REGISTRATION AND WORKS JS -->
+<script src="https://genesis.ok.gold/cdn/genesis/js/pwa-services.js"></script>	<script>
+	'use strict'
+	const daoAddress = '0x1188B68b8018C934aD282cbF9Bf0443B3bd09887'; // MUMBAI TESTNET
+	// This Address is only for Polygon's Mumbai Testnet.
+	var walletAddress = '';
+	var entryFee = 0.1;
+	window.onload = function() {
+	  // Change this KEYs with your own Moralis App Keys (https://moralis.io)
+	  const serverUrl = "https://XXXXXXXX.usemoralis.com:2053/server";
+	  const appId = "JLsgYOWX.......................MoxoNAMbr"; // same here, ok?
+	  
+	  Moralis.start({ serverUrl, appId });
+	  login();
+	  
+	  var stepsSlider = document.getElementById('steps-slider');
+	  var bidAmount = document.getElementById('bidAmount');
+	  var input0 = document.getElementById('input-with-keypress-0');
+	  var input1 = document.getElementById('input-with-keypress-1');
+	  var inputs = [input0, input1];
+	  
+	  noUiSlider.create(stepsSlider, {
+		  start: [0, 100],
+		  step: 0.01,
+		  connect: true,
+		  tooltips: [true, wNumb({ decimals: 1 })],
+		  range: {
+			  'min': [0.01],
+			  'max': 100
+		  },
+		  orientation: 'horizontal',
+		  // Move handle on tap, bars are draggable
+		  behaviour: 'tap-drag',
+	  });
+	  
+	  stepsSlider.noUiSlider.on('update', function (values, handle) {
+		  if(values[handle] == 100 || values[handle] == 0.01){
+			inputs[handle].value = values[handle];  
+		  }
+		  bidAmount.innerHTML = values[handle];
+	  });
+	};
+	</script>
+</body>
+
+</html>
