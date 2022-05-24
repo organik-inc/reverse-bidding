@@ -1,1 +1,7 @@
 package-lock.json
+node_modules
+artifacts-zk
+build-info
+cache-zk
+yarn.lock
+package-lock.json
